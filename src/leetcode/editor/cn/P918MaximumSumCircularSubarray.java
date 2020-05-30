@@ -1,10 +1,10 @@
 //给定一个由整数数组 A 表示的环形数组 C，求 C 的非空子数组的最大可能和。 
 //
-// 在此处，环形数组意味着数组的末端将会与开头相连呈环状。（形式上，当0 <= i < A.length 时 C[i] = A[i]，而当 i >= 0 时 
-//C[i+A.length] = C[i]） 
+// 在此处，环形数组意味着数组的末端将会与开头相连呈环状。
+// （形式上，当0 <= i < A.length 时 C[i] = A[i]，而当 i >= 0 时C[i+A.length] = C[i]）
 //
-// 此外，子数组最多只能包含固定缓冲区 A 中的每个元素一次。（形式上，对于子数组 C[i], C[i+1], ..., C[j]，不存在 i <= k1, 
-//k2 <= j 其中 k1 % A.length = k2 % A.length） 
+// 此外，子数组最多只能包含固定缓冲区 A 中的每个元素一次。
+// （形式上，对于子数组 C[i], C[i+1], ..., C[j]，不存在 i <= k1,k2 <= j 其中 k1 % A.length = k2 % A.length）
 //
 // 
 //
@@ -55,16 +55,32 @@
 
 
 package leetcode.editor.cn;
+
+import java.util.jar.JarEntry;
+
 //Java：环形子数组的最大和
 public class P918MaximumSumCircularSubarray{
     public static void main(String[] args) {
         Solution solution = new P918MaximumSumCircularSubarray().new Solution();
         // TO TEST
+        int[] ints = {1, 2, 3};
+        System.out.println(solution.maxSubarraySumCircular(ints));
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int maxSubarraySumCircular(int[] A) {
-        return 0;
+        if (A.length ==1 ) return A[0];
+        int max=A[0];
+        int curr;
+        for (int i = 0; i < A.length; i++) {
+            curr = A[i];
+            max = Math.max(max,curr);
+            for (int j = (i + 1) % A.length; (j-i)%A.length!=0; j = (j + 1) % A.length) {
+                curr = curr + A[j];
+                max = Math.max(max,curr);
+            }
+        }
+        return max;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
